@@ -8,5 +8,37 @@
     <script defer src="script.js"></script>
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <button class="modalButton">Pop the modal</button>
+    <div id="modalContainer">
+      <div class="modal">
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Book title"
+          required
+        />
+        <input
+          type="text"
+          name="author"
+          id="author"
+          required
+          placeholder="Author name"
+        />
+        <input
+          type="number"
+          name="pageNum"
+          id="pageNum"
+          required
+          placeholder="Number of pages"
+        />
+        <div class="readDiv">
+          <label for="read">Have you read it yet?</label>
+          <input type="checkbox" name="read" id="read" />
+        </div>
+        <button id="addButton">Add book to your awesome library</button>
+      </div>
+    </div>
+  </body>
 </html>
