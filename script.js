@@ -18,7 +18,8 @@ let Library = [];
 function addBookToLibrary(title, author, pageNum, read) {
   let newBook = new Book(title, author, pageNum, read);
   Library.push(newBook);
-}
+} //a lo mejor es buena idea agregar esto a un prototype de Book para poder hacer por ejemplo newbook.addToLibrary o algo asi
+
 function CicleArray() {
   Library.forEach((item) => {
     console.log(item);
@@ -41,14 +42,22 @@ function checkCheckbox() {
 }
 
 addButton.addEventListener("click", () => {
-  addBookToLibrary(
-    inputTitle.value,
-    inputAuthor.value,
-    inputPageNum.value,
-    checkCheckbox()
-  );
-  inputTitle.value = "";
-  inputAuthor.value = "";
-  inputPageNum.value = "";
-  CicleArray();
+  if (
+    inputTitle.value.length != 0 &&
+    inputAuthor.value.length != 0 &&
+    inputPageNum.value.length != 0
+  ) {
+    addBookToLibrary(
+      inputTitle.value,
+      inputAuthor.value,
+      inputPageNum.value,
+      checkCheckbox()
+    );
+    inputTitle.value = "";
+    inputAuthor.value = "";
+    inputPageNum.value = "";
+    CicleArray();
+  } else {
+    alert("Make sure that you complete all fields.");
+  }
 });
