@@ -18,6 +18,12 @@
   margin: 15%;
 }
 
+#container {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
 button {
   cursor: pointer;
 }

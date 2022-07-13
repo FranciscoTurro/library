@@ -1,4 +1,5 @@
 const modalContainer = document.getElementById("modalContainer");
+const Container = document.getElementById("container");
 const modalButton = document.querySelector(".modalButton");
 const addButton = document.getElementById("addButton");
 const inputTitle = document.getElementById("title");
@@ -26,6 +27,36 @@ function CicleArray() {
   });
 }
 
+function checkCheckbox() {
+  if (checkRead.checked) return true;
+  else return false;
+}
+
+function createCards(book) {
+  const card = document.createElement("div");
+  const cardTitle = document.createElement("p");
+  const cardAuthor = document.createElement("p");
+  const cardPages = document.createElement("p");
+  const buttonDiv = document.createElement("div");
+  const readButton = document.createElement("button");
+  const removeButton = document.createElement("button");
+
+  card.classList.add("bookCard");
+  buttonDiv.classList.add("buttonDiv");
+
+  cardTitle.textContent = book.title;
+  cardAuthor.textContent = book.author;
+  cardPages.textContent = book.pageNum + " pages";
+
+  card.appendChild(cardTitle);
+  card.appendChild(cardAuthor);
+  card.appendChild(cardPages);
+  buttonDiv.appendChild(readButton);
+  buttonDiv.appendChild(removeButton);
+  card.appendChild(buttonDiv);
+  Container.appendChild(card);
+}
+
 modalButton.addEventListener("click", () => {
   modalContainer.style.display = "block";
 });
@@ -36,17 +67,13 @@ window.addEventListener("click", (e) => {
   }
 });
 
-function checkCheckbox() {
-  if (checkRead.checked) return true;
-  else return false;
-}
-
 addButton.addEventListener("click", () => {
   if (
     inputTitle.value.length != 0 &&
     inputAuthor.value.length != 0 &&
     inputPageNum.value.length != 0
   ) {
+    Container.innerHTML = "";
     addBookToLibrary(
       inputTitle.value,
       inputAuthor.value,
@@ -56,8 +83,11 @@ addButton.addEventListener("click", () => {
     inputTitle.value = "";
     inputAuthor.value = "";
     inputPageNum.value = "";
-    CicleArray();
+    modalContainer.style.display = "none";
+    Library.forEach((item) => {
+      createCards(item);
+    });
   } else {
-    alert("Make sure that you complete all fields.");
+    alert("Make sure that you complete all fields with valid information.");
   }
 });
