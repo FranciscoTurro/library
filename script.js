@@ -37,33 +37,38 @@ function createCards(book) {
   const cardTitle = document.createElement("p");
   const cardAuthor = document.createElement("p");
   const cardPages = document.createElement("p");
-  const buttonDiv = document.createElement("div");
+  const buttonDiv = document.createElement("div"); //create all the elements
   const readButton = document.createElement("button");
   const removeButton = document.createElement("button");
 
-  card.classList.add("bookCard");
+  card.classList.add("bookCard"); //give a class to the containers
   buttonDiv.classList.add("buttonDiv");
 
   cardTitle.textContent = book.title;
   cardAuthor.textContent = book.author;
-  cardPages.textContent = book.pageNum + " pages";
+  cardPages.textContent = book.pageNum + " pages"; //give values to the book to be added
+  if (book.read == true) readButton.textContent = "Not read";
+  else readButton.textContent = "Read";
+  removeButton.textContent = "Remove";
 
   card.appendChild(cardTitle);
-  card.appendChild(cardAuthor);
+  card.appendChild(cardAuthor); //append everything to its proper container
   card.appendChild(cardPages);
   buttonDiv.appendChild(readButton);
   buttonDiv.appendChild(removeButton);
   card.appendChild(buttonDiv);
   Container.appendChild(card);
+
+  readButton.addEventListener("click", () => {});
 }
 
 modalButton.addEventListener("click", () => {
-  modalContainer.style.display = "block";
+  modalContainer.style.display = "block"; //makes the modal appear
 });
 
 window.addEventListener("click", (e) => {
   if (e.target == modalContainer) {
-    modalContainer.style.display = "none";
+    modalContainer.style.display = "none"; //makes the modal dissappear if i click outside of it
   }
 });
 
