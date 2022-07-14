@@ -8,23 +8,33 @@ const inputPageNum = document.getElementById("pageNum");
 const checkRead = document.getElementById("read");
 
 function Book(title, author, pageNum, read) {
+  //book object constructor
   this.title = title;
   this.author = author;
   this.pageNum = pageNum;
   this.read = read;
 }
 
-let Library = [];
+const BookProto = {
+  //book object prototype
+  addBook() {
+    Library.push(this);
+  },
+};
+Book.prototype = BookProto;
 
-function addBookToLibrary(title, author, pageNum, read) {
-  let newBook = new Book(title, author, pageNum, read);
-  Library.push(newBook);
-} //a lo mejor es buena idea agregar esto a un prototype de Book para poder hacer por ejemplo newbook.addToLibrary o algo asi
+let Library = []; //array that acts as the library
 
 function CicleArray() {
+  //logs the entire array. troubleshooting only
   Library.forEach((item) => {
     console.log(item);
   });
+}
+
+function removeBook(title) {
+  //filters the array to keep only books with titles different than the one given
+  Library = Library.filter((item) => item.title != title);
 }
 
 function checkCheckbox() {
@@ -37,7 +47,7 @@ function createCards(book) {
   const cardTitle = document.createElement("p");
   const cardAuthor = document.createElement("p");
   const cardPages = document.createElement("p");
-  const buttonDiv = document.createElement("div"); //create all the elements
+  const buttonDiv = document.createElement("div"); //create all the elements necessary for a card
   const readButton = document.createElement("button");
   const removeButton = document.createElement("button");
 
@@ -46,7 +56,7 @@ function createCards(book) {
 
   cardTitle.textContent = book.title;
   cardAuthor.textContent = book.author;
-  cardPages.textContent = book.pageNum + " pages"; //give values to the book to be added
+  cardPages.textContent = book.pageNum + " pages"; //give book values to the card to be added
   if (book.read == true) readButton.textContent = "Not read";
   else readButton.textContent = "Read";
   removeButton.textContent = "Remove";
@@ -59,7 +69,13 @@ function createCards(book) {
   card.appendChild(buttonDiv);
   Container.appendChild(card);
 
-  readButton.addEventListener("click", () => {});
+  removeButton.addEventListener("click", (e) => {
+    removeBook(e.target.parentNode.parentNode.firstChild.innerHTML); //didnt think of this. e.target is the button, the parent node of the button is buttonDiv. the parent node of buttonDiv is card. the first child of card is the title
+    Container.innerHTML = ""; //resets the container and writes the array on cards again
+    Library.forEach((item) => {
+      createCards(item);
+    });
+  });
 }
 
 modalButton.addEventListener("click", () => {
@@ -75,18 +91,19 @@ window.addEventListener("click", (e) => {
 addButton.addEventListener("click", () => {
   if (
     inputTitle.value.length != 0 &&
-    inputAuthor.value.length != 0 &&
+    inputAuthor.value.length != 0 && //verifying that all inputs are full
     inputPageNum.value.length != 0
   ) {
-    Container.innerHTML = "";
-    addBookToLibrary(
+    Container.innerHTML = ""; //resets the container every time
+    const bookT = new Book(
       inputTitle.value,
       inputAuthor.value,
       inputPageNum.value,
       checkCheckbox()
     );
+    bookT.addBook();
     inputTitle.value = "";
-    inputAuthor.value = "";
+    inputAuthor.value = ""; //resets the inputs, closes the modal and calls the createcards function inside of a foreach to create a card for each item in library
     inputPageNum.value = "";
     modalContainer.style.display = "none";
     Library.forEach((item) => {
