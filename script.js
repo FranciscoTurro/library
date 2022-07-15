@@ -37,6 +37,12 @@ function removeBook(title) {
   Library = Library.filter((item) => item.title != title);
 }
 
+function toggleRead(title) {
+  bookTEST = Library.find((book) => book.title === title);
+  if (bookTEST.read == true) bookTEST.read = false;
+  else if (bookTEST.read == false) bookTEST.read = true;
+}
+
 function checkCheckbox() {
   if (checkRead.checked) return true;
   else return false;
@@ -58,7 +64,7 @@ function createCards(book) {
   cardAuthor.textContent = book.author;
   cardPages.textContent = book.pageNum + " pages"; //give book values to the card to be added
   if (book.read == true) readButton.textContent = "Not read";
-  else readButton.textContent = "Read";
+  else if (book.read == false) readButton.textContent = "Read";
   removeButton.textContent = "Remove";
 
   card.appendChild(cardTitle);
@@ -71,6 +77,14 @@ function createCards(book) {
 
   removeButton.addEventListener("click", (e) => {
     removeBook(e.target.parentNode.parentNode.firstChild.innerHTML); //didnt think of this. e.target is the button, the parent node of the button is buttonDiv. the parent node of buttonDiv is card. the first child of card is the title
+    Container.innerHTML = ""; //resets the container and writes the array on cards again
+    Library.forEach((item) => {
+      createCards(item);
+    });
+  });
+
+  readButton.addEventListener("click", (e) => {
+    toggleRead(e.target.parentNode.parentNode.firstChild.innerHTML);
     Container.innerHTML = ""; //resets the container and writes the array on cards again
     Library.forEach((item) => {
       createCards(item);
