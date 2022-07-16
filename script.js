@@ -69,9 +69,11 @@ function createCards(book) {
   cardPages.textContent = book.pageNum + " pages"; //give book values to the card to be added
   if (book.read == true) {
     readButton.textContent = "Not read";
+    readButton.classList.add("notread");
     card.classList.add("readcard");
   } else {
     if (book.read == false) readButton.textContent = "Read";
+    readButton.classList.add("read");
     card.classList.add("NOTreadcard");
   }
   removeButton.textContent = "Remove";
