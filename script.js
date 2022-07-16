@@ -67,8 +67,13 @@ function createCards(book) {
   cardTitle.textContent = book.title;
   cardAuthor.textContent = book.author;
   cardPages.textContent = book.pageNum + " pages"; //give book values to the card to be added
-  if (book.read == true) readButton.textContent = "Not read";
-  else if (book.read == false) readButton.textContent = "Read";
+  if (book.read == true) {
+    readButton.textContent = "Not read";
+    card.classList.add("readcard");
+  } else {
+    if (book.read == false) readButton.textContent = "Read";
+    card.classList.add("NOTreadcard");
+  }
   removeButton.textContent = "Remove";
 
   card.appendChild(cardTitle);

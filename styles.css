@@ -7,6 +7,18 @@
   font-family: "Tomorrow", sans-serif;
 }
 
+:root {
+  --yellow: #ffd319;
+  --orange: #ff901f;
+  --strong-pink: #ff2975;
+  --purple: #f222ff;
+  --blue: #0161e8;
+  --yellow-color: #fcee09;
+  --red-color: #ff003c;
+  --black-color: #050a0e;
+  --blue-color: #00f0ff;
+}
+
 body {
   background-color: #f0eef1;
 }
@@ -33,12 +45,35 @@ body {
 
 #container {
   display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 50px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
-button {
+.buttonDiv button {
   cursor: pointer;
+  font-weight: 700;
+  padding: 1em 1em;
+  border-radius: 2em;
+  border: none;
+  background-color: var(--orange);
+  color: black;
+  font-size: 1rem;
+  width: 45%;
+  margin: 4px;
+}
+
+.readcard {
+  border-left: 10px solid rgb(0, 255, 0);
+}
+
+.NOTreadcard {
+  border-left: 10px solid var(--red-color);
+}
+
+.buttonDiv button:hover {
+  background-color: var(--strong-pink);
 }
 
 img {
@@ -59,17 +94,15 @@ img {
 }
 
 .bookCard {
-  background-color: red;
+  background-color: white;
+  border-radius: 25px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* button start */
-:root {
-  --yellow-color: #fcee09;
-  --red-color: #ff003c;
-  --black-color: #050a0e;
-  --blue-color: #00f0ff;
-}
-
 .modalButton {
   margin: 25px;
   width: 230px;
@@ -96,11 +129,11 @@ img {
   left: 2px;
   right: 2px;
   bottom: 2px;
-  background-color: var(--yellow-color);
+  background-color: var(--blue);
   clip-path: polygon(92% 0, 100% 25%, 100% 100%, 8% 100%, 0% 75%, 0 0);
 }
 
 .btn__content:hover {
-  background-color: var(--red-color);
+  background-color: var(--purple);
 }
 /* button end */
