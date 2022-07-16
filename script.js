@@ -6,6 +6,10 @@ const inputTitle = document.getElementById("title");
 const inputAuthor = document.getElementById("author");
 const inputPageNum = document.getElementById("pageNum");
 const checkRead = document.getElementById("read");
+const modeToggle = document.getElementById("modeToggle");
+const body = document.body;
+const header = document.getElementById("header");
+const modal = document.querySelector(".modal");
 
 function Book(title, author, pageNum, read) {
   //book object constructor
@@ -139,5 +143,20 @@ addButton.addEventListener("click", () => {
     alert(
       "Make sure that you complete all fields with valid information. Book titles cannot be repeated."
     );
+  }
+});
+
+let tracker;
+modeToggle.addEventListener("click", () => {
+  body.classList.toggle("darkmodeBody");
+  header.classList.toggle("darkmodeHeader");
+  modal.classList.toggle("darkmodeModal");
+
+  if (tracker == "t") {
+    modeToggle.src = "images/dark.png";
+    tracker = "asd"; //logic is absolute dogshit on this but i couldnt get it to work by doing if (notis.src == ....) so it stays like this
+  } else {
+    modeToggle.src = "images/light.png";
+    tracker = "t";
   }
 });
