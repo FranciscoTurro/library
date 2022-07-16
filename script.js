@@ -154,7 +154,7 @@ modeToggle.addEventListener("click", () => {
 
   if (tracker == "t") {
     modeToggle.src = "images/dark.png";
-    tracker = "asd"; //logic is absolute dogshit on this but i couldnt get it to work by doing if (notis.src == ....) so it stays like this
+    tracker = "asd"; //logic is absolute dogshit on this but i couldnt get it to work by doing if (modeToggle.src == ....) so it stays like this
   } else {
     modeToggle.src = "images/light.png";
     tracker = "t";
