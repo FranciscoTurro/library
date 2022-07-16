@@ -38,9 +38,13 @@ function removeBook(title) {
 }
 
 function toggleRead(title) {
-  bookTEST = Library.find((book) => book.title === title);
+  const bookTEST = Library.find((book) => book.title === title);
   if (bookTEST.read == true) bookTEST.read = false;
   else if (bookTEST.read == false) bookTEST.read = true;
+}
+
+function isInLibrary(bookTitle) {
+  return Library.some((book) => book.title === bookTitle);
 }
 
 function checkCheckbox() {
@@ -105,8 +109,9 @@ window.addEventListener("click", (e) => {
 addButton.addEventListener("click", () => {
   if (
     inputTitle.value.length != 0 &&
-    inputAuthor.value.length != 0 && //verifying that all inputs are full
-    inputPageNum.value.length != 0
+    inputAuthor.value.length != 0 && //verifying that all inputs are full and the book isnt repeated
+    inputPageNum.value.length != 0 &&
+    !isInLibrary(inputTitle.value)
   ) {
     Container.innerHTML = ""; //resets the container every time
     const bookT = new Book(
@@ -124,6 +129,8 @@ addButton.addEventListener("click", () => {
       createCards(item);
     });
   } else {
-    alert("Make sure that you complete all fields with valid information.");
+    alert(
+      "Make sure that you complete all fields with valid information. Book titles cannot be repeated."
+    );
   }
 });
