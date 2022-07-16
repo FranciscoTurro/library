@@ -69,7 +69,7 @@ function createCards(book) {
   buttonDiv.classList.add("buttonDiv");
 
   cardTitle.textContent = book.title;
-  cardAuthor.textContent = book.author;
+  cardAuthor.textContent = "Written by " + book.author;
   cardPages.textContent = book.pageNum + " pages"; //give book values to the card to be added
   if (book.read == true) {
     readButton.textContent = "Not read";
