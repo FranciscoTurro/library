@@ -11,46 +11,52 @@ const body = document.body;
 const header = document.getElementById("header");
 const modal = document.querySelector(".modal");
 
-class Book {
+class Books {
   constructor(title, author, pageNum, read) {
     this.title = title;
     this.author = author;
     this.pageNum = pageNum;
     this.read = read;
   }
+}
 
-  addBook() {
-    Library.push(this);
+class libraryClass {
+  constructor() {
+    this.Library = []; //array that acts as the library
+  }
+
+  addBook(book) {
+    this.Library.push(book);
+  }
+
+  removeBook(title) {
+    //filters the array to keep only books with titles different than the one given
+    this.Library = this.Library.filter((item) => item.title != title);
+  }
+
+  toggleRead(title) {
+    const bookTEST = this.Library.find((book) => book.title === title);
+    if (bookTEST.read == true) bookTEST.read = false;
+    else if (bookTEST.read == false) bookTEST.read = true;
+  }
+
+  isInLibrary(bookTitle) {
+    return this.Library.some((book) => book.title === bookTitle);
   }
 }
 
-let Library = []; //array that acts as the library
-
-function CicleArray() {
-  //logs the entire array. troubleshooting only
-  Library.forEach((item) => {
-    console.log(item);
-  });
-}
-
-function removeBook(title) {
-  //filters the array to keep only books with titles different than the one given
-  Library = Library.filter((item) => item.title != title);
-}
-
-function toggleRead(title) {
-  const bookTEST = Library.find((book) => book.title === title);
-  if (bookTEST.read == true) bookTEST.read = false;
-  else if (bookTEST.read == false) bookTEST.read = true;
-}
-
-function isInLibrary(bookTitle) {
-  return Library.some((book) => book.title === bookTitle);
-}
+const library = new libraryClass();
 
 function checkCheckbox() {
   if (checkRead.checked) return true;
   else return false;
+}
+
+function CicleArray() {
+  //logs the entire array. troubleshooting only
+  library.Library.forEach((item) => {
+    console.log(item);
+  });
 }
 
 function createCards(book) {
@@ -88,17 +94,17 @@ function createCards(book) {
   Container.appendChild(card);
 
   removeButton.addEventListener("click", (e) => {
-    removeBook(e.target.parentNode.parentNode.firstChild.innerHTML); //didnt think of this. e.target is the button, the parent node of the button is buttonDiv. the parent node of buttonDiv is card. the first child of card is the title
+    library.removeBook(e.target.parentNode.parentNode.firstChild.innerHTML); //didnt think of this. e.target is the button, the parent node of the button is buttonDiv. the parent node of buttonDiv is card. the first child of card is the title
     Container.innerHTML = ""; //resets the container and writes the array on cards again
-    Library.forEach((item) => {
+    library.Library.forEach((item) => {
       createCards(item);
     });
   });
 
   readButton.addEventListener("click", (e) => {
-    toggleRead(e.target.parentNode.parentNode.firstChild.innerHTML);
+    library.toggleRead(e.target.parentNode.parentNode.firstChild.innerHTML);
     Container.innerHTML = ""; //resets the container and writes the array on cards again
-    Library.forEach((item) => {
+    library.Library.forEach((item) => {
       createCards(item);
     });
   });
@@ -119,21 +125,21 @@ addButton.addEventListener("click", () => {
     inputTitle.value.length != 0 &&
     inputAuthor.value.length != 0 && //verifying that all inputs are full and the book isnt repeated
     inputPageNum.value.length != 0 &&
-    !isInLibrary(inputTitle.value)
+    !library.isInLibrary(inputTitle.value)
   ) {
     Container.innerHTML = ""; //resets the container every time
-    const bookT = new Book(
+    const bookT = new Books(
       inputTitle.value,
       inputAuthor.value,
       inputPageNum.value,
       checkCheckbox()
     );
-    bookT.addBook();
+    library.addBook(bookT);
     inputTitle.value = "";
     inputAuthor.value = ""; //resets the inputs, closes the modal and calls the createcards function inside of a foreach to create a card for each item in library
     inputPageNum.value = "";
     modalContainer.style.display = "none";
-    Library.forEach((item) => {
+    library.Library.forEach((item) => {
       createCards(item);
     });
   } else {
