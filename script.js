@@ -11,21 +11,18 @@ const body = document.body;
 const header = document.getElementById("header");
 const modal = document.querySelector(".modal");
 
-function Book(title, author, pageNum, read) {
-  //book object constructor
-  this.title = title;
-  this.author = author;
-  this.pageNum = pageNum;
-  this.read = read;
-}
+class Book {
+  constructor(title, author, pageNum, read) {
+    this.title = title;
+    this.author = author;
+    this.pageNum = pageNum;
+    this.read = read;
+  }
 
-const BookProto = {
-  //book object prototype
   addBook() {
     Library.push(this);
-  },
-};
-Book.prototype = BookProto;
+  }
+}
 
 let Library = []; //array that acts as the library
 
